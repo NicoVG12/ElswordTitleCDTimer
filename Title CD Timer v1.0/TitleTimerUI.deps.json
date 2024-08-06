@@ -1,0 +1,61 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "TitleTimerUI/1.0.0": {
+        "dependencies": {
+          "Clock": "1.0.0",
+          "Language": "1.0.0",
+          "Settings": "1.0.0"
+        },
+        "runtime": {
+          "TitleTimerUI.dll": {}
+        }
+      },
+      "Clock/1.0.0": {
+        "dependencies": {
+          "Settings": "1.0.0"
+        },
+        "runtime": {
+          "Clock.dll": {}
+        }
+      },
+      "Language/1.0.0": {
+        "runtime": {
+          "Language.dll": {}
+        }
+      },
+      "Settings/1.0.0": {
+        "runtime": {
+          "Settings.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "TitleTimerUI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Clock/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Language/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Settings/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
