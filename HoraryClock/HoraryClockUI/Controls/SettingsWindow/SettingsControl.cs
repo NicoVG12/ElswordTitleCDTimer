@@ -19,7 +19,7 @@ namespace TitleTimerUI.Controls.SettingsWindow
         private const int CLOCK_SETTINGS_ID = 1;
         private const int KEY_SETTINGS_ID = 2;
         private const int COMMON_KEYS_SETTINGS_ID = 3;
-        private const int OTHER_SETTINGS_ID = 4;
+        private const int ACTION_KEYS_SETTINGS_ID = 4;
 
         private Label[] _labels = new Label[CONTROL_AMOUNT];
         private bool[] _settingSelected = new bool[CONTROL_AMOUNT];
@@ -36,8 +36,6 @@ namespace TitleTimerUI.Controls.SettingsWindow
             SetSelected(CLOCK_SETTINGS_ID);
             Refresh();
 
-            //No "Other" Options so far
-            lblOther.Visible = false;
         }
 
         private void InitializeLabelArray()
@@ -46,7 +44,7 @@ namespace TitleTimerUI.Controls.SettingsWindow
             _labels[CLOCK_SETTINGS_ID] = lblPvPOffset;
             _labels[KEY_SETTINGS_ID] = lblKeyBindings;
             _labels[COMMON_KEYS_SETTINGS_ID] = lblCommonKeySettings;
-            _labels[OTHER_SETTINGS_ID] = lblOther;
+            _labels[ACTION_KEYS_SETTINGS_ID] = lblActionKeys;
         }
 
         private void InitializeControls()
@@ -55,6 +53,7 @@ namespace TitleTimerUI.Controls.SettingsWindow
             _settingsControls[CLOCK_SETTINGS_ID] = new ClockSettingsControl(_mainForm);
             _settingsControls[KEY_SETTINGS_ID] = new KeyBindingsControl(_mainForm);
             _settingsControls[COMMON_KEYS_SETTINGS_ID] = new CommonKeyBindingsControl(_mainForm);
+            _settingsControls[ACTION_KEYS_SETTINGS_ID] = new ActionKeysControl(_mainForm);
         }
 
         private void SetSelected(int settingId)
@@ -104,8 +103,8 @@ namespace TitleTimerUI.Controls.SettingsWindow
             lblPvPOffset.MouseLeave += OnMouseLeaveClock;
             lblKeyBindings.MouseEnter += OnMouseEnterKeys;
             lblKeyBindings.MouseLeave += OnMouseLeaveKeys;
-            lblOther.MouseEnter += OnMouseEnterOther;
-            lblOther.MouseLeave += OnMouseLeaveOther;
+            lblActionKeys.MouseEnter += OnMouseEnterOther;
+            lblActionKeys.MouseLeave += OnMouseLeaveOther;
             lblCommonKeySettings.MouseEnter += OnMouseEnterCommonKeySettings;
             lblCommonKeySettings.MouseLeave += OnMouseLeaveCommonKeySettings;
         }
@@ -165,17 +164,17 @@ namespace TitleTimerUI.Controls.SettingsWindow
 
         private void OnMouseEnterOther(object sender, EventArgs e)
         {
-            if (!_settingSelected[OTHER_SETTINGS_ID])
+            if (!_settingSelected[ACTION_KEYS_SETTINGS_ID])
             {
-                lblOther.Image = Properties.Resources.btnSettingHovered;
+                lblActionKeys.Image = Properties.Resources.btnSettingHovered;
             }
         }
 
         private void OnMouseLeaveOther(object sender, EventArgs e)
         {
-            if (!_settingSelected[OTHER_SETTINGS_ID])
+            if (!_settingSelected[ACTION_KEYS_SETTINGS_ID])
             {
-                lblOther.Image = Properties.Resources.btnSettingNotSelected;
+                lblActionKeys.Image = Properties.Resources.btnSettingNotSelected;
             }
         }
 
@@ -191,7 +190,7 @@ namespace TitleTimerUI.Controls.SettingsWindow
 
         private void lblOther_Click(object sender, EventArgs e)
         {
-
+            SetSelected(ACTION_KEYS_SETTINGS_ID);
         }
 
         private void OnMouseEnterCommonKeySettings(object sender, EventArgs e)

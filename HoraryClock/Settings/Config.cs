@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Settings;
+using System.ComponentModel;
 
 namespace HoraryClock
 {
@@ -17,6 +18,12 @@ namespace HoraryClock
         
         public KeyBinding KeyBindings { get; set; }
 
+        public TitleScheme TitleScheme { get; set; }
+
+        public UserActionKeys UserActionKeys { get; set; }
+
+        public int TitleSwitchDelayMilliseconds { get; set; }
+
         //TODO: Add SettingsReader and settings file
         private Config() 
         {
@@ -26,6 +33,10 @@ namespace HoraryClock
             WindowOpacity = 9;
             WindowAlwaysOnTop = 0;
             KeyBindings = new KeyBinding();
+            //TODO: Change for default
+            TitleScheme = new TitleScheme(true);
+            UserActionKeys = new UserActionKeys(true);
+            TitleSwitchDelayMilliseconds = 0;
         }
 
         public static Config Instance()

@@ -1,6 +1,7 @@
 ﻿using Clock;
 using HoraryClock;
 using Language;
+using Settings;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,6 +25,9 @@ namespace TitleTimerUI.Controls
         private Keys KeyPauseAll;
         private Keys KeyUnpauseAll;
         private Keys KeyResetAll;
+
+        private short Enter = 0x0D;
+        private short Escape = 0x1B;
 
         [DllImport("user32.dll")]
         public static extern short GetAsyncKeyState(int vKey);
@@ -69,56 +73,153 @@ namespace TitleTimerUI.Controls
 
         public async Task SetUpKeyBindings()
         {
+            if (false)
+            {
+                while (true)
+                {
+                    if (GetAsyncKeyState((int)Key13_5) < 0)
+                    {
+                        StartTimer(_timers[TitleTimer.ID_135]);
+                    }
+
+                    if (GetAsyncKeyState((int)Key15_6) < 0)
+                    {
+                        StartTimer(_timers[TitleTimer.ID_156]);
+                    }
+
+                    if (GetAsyncKeyState((int)Key17_5) < 0)
+                    {
+                        StartTimer(_timers[TitleTimer.ID_175]);
+                    }
+
+                    if (GetAsyncKeyState((int)KeyOrder) < 0)
+                    {
+                        StartTimer(_timers[TitleTimer.ID_ORDER]);
+                    }
+
+                    if (GetAsyncKeyState((int)KeyPauseAll) < 0)
+                    {
+                        foreach (TitleTimer title in _timers)
+                        {
+                            title.Timer.Pause();
+                        }
+                    }
+
+                    if (GetAsyncKeyState((int)KeyUnpauseAll) < 0)
+                    {
+                        foreach (TitleTimer title in _timers)
+                        {
+                            UnpauseTimer(title);
+                        }
+                    }
+
+                    if (GetAsyncKeyState((int)KeyResetAll) < 0)
+                    {
+                        foreach (TitleTimer title in _timers)
+                        {
+                            title.Timer.Reset();
+                            title.Label.Image = title.Image;
+                        }
+                    }
+
+                    await Task.Delay(10);
+                }
+            }
+
+            TitleStatus titleStatus = new TitleStatus();
+
             while (true)
             {
-                if (GetAsyncKeyState((int)Key13_5) < 0)
+                if (((GetAsyncKeyState((int)_config.UserActionKeys.OnionKey) < 0) || (GetAsyncKeyState((int)_config.UserActionKeys.OnionKeyAlt) < 0) || (GetAsyncKeyState((int)_config.UserActionKeys.AwakeningKey) < 0)) && titleStatus.CurrentTitle == TitleScheme.AwkCDrTitle)
                 {
                     StartTimer(_timers[TitleTimer.ID_135]);
                 }
 
-                if (GetAsyncKeyState((int)Key15_6) < 0)
+                bool pressedAnySkill = false;
+                foreach (short key in _config.UserActionKeys.SkillKeys)
                 {
-                    StartTimer(_timers[TitleTimer.ID_156]);
-                }
-
-                if (GetAsyncKeyState((int)Key17_5) < 0)
-                {
-                    StartTimer(_timers[TitleTimer.ID_175]);
-                }
-
-                if (GetAsyncKeyState((int)KeyOrder) < 0)
-                {
-                    StartTimer(_timers[TitleTimer.ID_ORDER]);
-                }
-
-                if (GetAsyncKeyState((int)KeyPauseAll) < 0)
-                {
-                    foreach (TitleTimer title in _timers)
                     {
-                        title.Timer.Pause();
+                        pressedAnySkill |= (GetAsyncKeyState((int)key) < 0);
                     }
-                }
 
-                if (GetAsyncKeyState((int)KeyUnpauseAll) < 0)
-                {
-                    foreach (TitleTimer title in _timers)
+                    if (pressedAnySkill && titleStatus.CurrentTitle == TitleScheme.ResetSkillTitle)
                     {
-                        UnpauseTimer(title);
+                        StartTimer(_timers[TitleTimer.ID_156]);
                     }
-                }
 
-                if (GetAsyncKeyState((int)KeyResetAll) < 0)
-                {
-                    foreach (TitleTimer title in _timers)
+                    if (((GetAsyncKeyState((int)_config.UserActionKeys.OnionKey) < 0) || (GetAsyncKeyState((int)_config.UserActionKeys.OnionKeyAlt) < 0) || (GetAsyncKeyState((int)_config.UserActionKeys.AwakeningKey) < 0)) && titleStatus.CurrentTitle == TitleScheme.AwkDmgTitle)
                     {
-                        title.Timer.Reset();
-                        title.Label.Image = title.Image;
+                        StartTimer(_timers[TitleTimer.ID_175]);
                     }
-                }
 
-                await Task.Delay(10);
+                    if (pressedAnySkill && titleStatus.CurrentTitle == TitleScheme.MainTitle)
+                    {
+                        StartTimer(_timers[TitleTimer.ID_ORDER]);
+                    }
+
+                    if (GetAsyncKeyState((int)KeyPauseAll) < 0)
+                    {
+                        foreach (TitleTimer title in _timers)
+                        {
+                            title.Timer.Pause();
+                        }
+                    }
+
+                    if (GetAsyncKeyState((int)KeyUnpauseAll) < 0)
+                    {
+                        foreach (TitleTimer title in _timers)
+                        {
+                            UnpauseTimer(title);
+                        }
+                    }
+
+                    if (GetAsyncKeyState((int)KeyResetAll) < 0)
+                    {
+                        foreach (TitleTimer title in _timers)
+                        {
+                            title.Timer.Reset();
+                            title.Label.Image = title.Image;
+                        }
+                    }
+
+                    if (GetAsyncKeyState(_config.UserActionKeys.TitleSwitchKey) < 0)
+                    {
+                        titleStatus.IsSwitchingTitle = true;
+                    }
+
+                    if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.TopTitleKey) < 0)
+                    {
+                        ChangeTitleAsync(TitleScheme.AwkDmgTitle, titleStatus);
+                        titleStatus.IsSwitchingTitle = false;
+                    }
+
+                    if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.LeftTitleKey) < 0)
+                    {
+                        ChangeTitleAsync(TitleScheme.AwkCDrTitle, titleStatus);
+                        titleStatus.IsSwitchingTitle = false;
+                    }
+
+                    if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.RightTitleKey) < 0)
+                    {
+                        ChangeTitleAsync(TitleScheme.MainTitle, titleStatus);
+                        titleStatus.IsSwitchingTitle = false;
+                    }
+
+                    if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.BottomTitleKey) < 0)
+                    {
+                        ChangeTitleAsync(TitleScheme.ResetSkillTitle, titleStatus);
+                        titleStatus.IsSwitchingTitle = false;
+                    }
+
+                    await Task.Delay(1);
+                }
             }
+        }
 
+        private async Task ChangeTitleAsync(int titleId, TitleStatus titleStatus)
+        {
+            await Task.Delay(_config.TitleSwitchDelayMilliseconds);
+            titleStatus.CurrentTitle = titleId;
         }
 
         void UnpauseTimer(TitleTimer title)

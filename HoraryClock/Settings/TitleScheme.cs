@@ -26,5 +26,16 @@ namespace Settings
             LeftTitle = NoTitle;
             RightTitle = NoTitle;
         }
+
+        public TitleScheme(bool _default)
+        {
+            if (_default)
+            {
+                TopTitle = AwkDmgTitle;
+                BottomTitle = ResetSkillTitle;
+                LeftTitle = AwkCDrTitle;
+                RightTitle = MainTitle;
+            }
+        }
     }
 }

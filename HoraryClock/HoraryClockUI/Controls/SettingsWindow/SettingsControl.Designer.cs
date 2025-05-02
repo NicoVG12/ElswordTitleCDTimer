@@ -32,7 +32,7 @@
             lblLanguage = new Label();
             lblPvPOffset = new Label();
             lblKeyBindings = new Label();
-            lblOther = new Label();
+            lblActionKeys = new Label();
             lblBackground = new Label();
             pnlSpecificSettings = new FlowLayoutPanel();
             lblCommonKeySettings = new Label();
@@ -77,18 +77,19 @@
             lblKeyBindings.TextAlign = ContentAlignment.MiddleCenter;
             lblKeyBindings.Click += lblKeyBindings_Click;
             // 
-            // lblOther
+            // lblActionKeys
             // 
-            lblOther.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblOther.ForeColor = Color.White;
-            lblOther.Image = Properties.Resources.btnSettingNotSelected;
-            lblOther.Location = new Point(27, 112);
-            lblOther.Name = "lblOther";
-            lblOther.Size = new Size(127, 27);
-            lblOther.TabIndex = 3;
-            lblOther.Text = "Orber";
-            lblOther.TextAlign = ContentAlignment.MiddleCenter;
-            lblOther.Click += lblOther_Click;
+            lblActionKeys.BackColor = SystemColors.Control;
+            lblActionKeys.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblActionKeys.ForeColor = Color.White;
+            lblActionKeys.Image = Properties.Resources.btnSettingNotSelected;
+            lblActionKeys.Location = new Point(27, 112);
+            lblActionKeys.Name = "lblActionKeys";
+            lblActionKeys.Size = new Size(127, 27);
+            lblActionKeys.TabIndex = 3;
+            lblActionKeys.Text = "Action Keys";
+            lblActionKeys.TextAlign = ContentAlignment.MiddleCenter;
+            lblActionKeys.Click += lblOther_Click;
             // 
             // lblBackground
             // 
@@ -126,7 +127,7 @@
             AutoScaleMode = AutoScaleMode.None;
             Controls.Add(lblCommonKeySettings);
             Controls.Add(pnlSpecificSettings);
-            Controls.Add(lblOther);
+            Controls.Add(lblActionKeys);
             Controls.Add(lblKeyBindings);
             Controls.Add(lblPvPOffset);
             Controls.Add(lblLanguage);
@@ -142,7 +143,7 @@
         private Label lblLanguage;
         private Label lblPvPOffset;
         private Label lblKeyBindings;
-        private Label lblOther;
+        private Label lblActionKeys;
         private Label lblBackground;
         private FlowLayoutPanel pnlSpecificSettings;
         private Label lblCommonKeySettings;

@@ -30,11 +30,12 @@ namespace TitleTimerUI
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
-        private const int CONTROL_AMOUNT = 3;
+        private const int CONTROL_AMOUNT = 4;
 
         public const int CLOCK_ID = 0;
         public const int SETTINGS_ID = 1;
         public const int MINI_CLOCK_ID = 2;
+        public const int ACTION_KEYS_ID = 3;
 
         private Config _config = Config.Instance();
         private LanguageManager _languageManager = LanguageManager.Instance();
@@ -87,6 +88,7 @@ namespace TitleTimerUI
             _controls[CLOCK_ID] = new ClockControl(this);
             _controls[SETTINGS_ID] = new SettingsControl(this);
             _controls[MINI_CLOCK_ID] = new MiniClockControl(this);
+            _controls[ACTION_KEYS_ID] = new ActionKeysControl(this);
         }
 
         private void InitializeTitle()
@@ -191,27 +193,6 @@ namespace TitleTimerUI
             ClockControl clockControl = _controls[CLOCK_ID] as ClockControl;
             Minimize(clockControl.GetRemainingTime());
         }
-
-        public Keys StringToKeys(string key)
-        {
-            switch (key)
-            {
-                case "F1": return Keys.F1;
-                case "F2": return Keys.F2;
-                case "F3": return Keys.F3;
-                case "F4": return Keys.F4;
-                case "F5": return Keys.F5;
-                case "F6": return Keys.F6;
-                case "F7": return Keys.F7;
-                case "F8": return Keys.F8;
-                case "F9": return Keys.F9;
-                case "F10": return Keys.F10;
-                case "F11": return Keys.F11;
-                case "F12": return Keys.F12;
-                default: return Keys.F1;
-            }
-        }
-
         public void SetLanguage(LanguageData languageData)
         {
             foreach (Control control in _controls)
