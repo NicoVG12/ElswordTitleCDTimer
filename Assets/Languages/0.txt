@@ -1,0 +1,56 @@
+//Language Name
+English
+
+//Clock Window (Maximized)
+Clock hasn't been started yet.
+No effects applied.
+Remaining Time:
+Start
+Pause
+Reset
+
+//Effects
+[Collection Of Light]
+Ally All Damage Increase +
+%.
+[Void Of Curse]
+Ignores 
+% of enemy's defence.
+Amount of hits increased to 
+.
+[Judgement]
+Ally Special Resources Consumption 
+%.
+[Culmination]
+Ally All Damage Increase +
+%.
+Ally Special Resources Consumption 
+%.
+
+//Settings
+Language
+Clock
+Key Bindings
+Other
+Return
+Save
+
+//Clock Settings
+PvP Offset
+Adds a 3 second offset to the clock./\(The clock will start on 17s)
+Start Clock on Reset
+Automatically start the clock upon reset.
+Window's Opacity
+Set the window's opacity./\(10%~100%)
+Window Always on Top
+The window will always stay on top.
+
+//Key Bindings Menu
+Start Key
+The clock will start when this key is pressed. (Also pauses the clock when minimized)
+Pause Key
+The clock will stop when this key is pressed./\(Also starts the clock when minimized)
+Reset Key
+The clock will be reset when this key is pressed.
+Only F1~F12 Keys are allowed.
+The same key cannot be bound to multiple actions.
