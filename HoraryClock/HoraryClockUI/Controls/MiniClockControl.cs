@@ -54,7 +54,7 @@ namespace TitleTimerUI.Controls
             ClockManager _175Manager = new ClockManager(60000);
             ClockManager _135Manager = new ClockManager(30000);
             ClockManager _156Manager = new ClockManager(25000);
-            ClockManager OrderManager = new ClockManager(20000);
+            ClockManager OrderManager = new ClockManager(30000);
 
             TitleTimer _175Timer = new TitleTimer(lbl175, _175Manager, Properties.Resources.Title_175_CD1, Properties.Resources.Title_175);
             TitleTimer _135Timer = new TitleTimer(lbl135, _135Manager, Properties.Resources.Title_135_CD1, Properties.Resources.Title_135);
