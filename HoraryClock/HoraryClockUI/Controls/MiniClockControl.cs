@@ -125,6 +125,8 @@ namespace TitleTimerUI.Controls
                 }
             }
 
+            ListenToGlobalKeys(titleStatus);
+
             while (true)
             {
                 if (!titleStatus.IsWritingInChat)
@@ -153,31 +155,6 @@ namespace TitleTimerUI.Controls
                     if (pressedAnySkill && titleStatus.CurrentTitle == TitleScheme.MainTitle)
                     {
                         StartTimer(_timers[TitleTimer.ID_ORDER], titleStatus);
-                    }
-
-                    if (GetAsyncKeyState((int)KeyPauseAll) < 0)
-                    {
-                        foreach (TitleTimer title in _timers)
-                        {
-                            title.Timer.Pause();
-                        }
-                    }
-
-                    if (GetAsyncKeyState((int)KeyUnpauseAll) < 0)
-                    {
-                        foreach (TitleTimer title in _timers)
-                        {
-                            UnpauseTimer(title, titleStatus);
-                        }
-                    }
-
-                    if (GetAsyncKeyState((int)KeyResetAll) < 0)
-                    {
-                        foreach (TitleTimer title in _timers)
-                        {
-                            title.Timer.Reset();
-                            title.Label.Image = title.Image;
-                        }
                     }
 
                     if (GetAsyncKeyState(_config.UserActionKeys.TitleSwitchKey) < 0)
@@ -224,6 +201,46 @@ namespace TitleTimerUI.Controls
                 }*/
 
                 await Task.Delay(1);
+            }
+        }
+
+        private async Task ListenToGlobalKeys(TitleStatus titleStatus)
+        {
+            while (true)
+            {
+                if (GetAsyncKeyState((int)KeyPauseAll) < 0)
+                {
+                    foreach (TitleTimer title in _timers)
+                    {
+                        title.Timer.Pause();
+                    }
+                }
+
+                if (GetAsyncKeyState((int)KeyUnpauseAll) < 0)
+                {
+                    foreach (TitleTimer title in _timers)
+                    {
+                        UnpauseTimer(title, titleStatus);
+                    }
+                }
+
+                if (GetAsyncKeyState((int)KeyResetAll) < 0)
+                {
+                    foreach (TitleTimer title in _timers)
+                    {
+                        title.Timer.Reset();
+                        title.Label.Text = "";
+                        if(titleStatus.CurrentTitle == title.TitleId)
+                        {
+                            title.Label.Image = title.ImageSelected;
+                        } else
+                        {
+                            title.Label.Image = title.Image;
+                        }
+                    }
+                }
+
+                await Task.Delay(10);
             }
         }
 
