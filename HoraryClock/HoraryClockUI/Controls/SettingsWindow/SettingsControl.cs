@@ -13,13 +13,14 @@ namespace TitleTimerUI.Controls.SettingsWindow
 {
     public partial class SettingsControl : UserControl, ILanguageSetter
     {
-        private const int CONTROL_AMOUNT = 5;
+        private const int CONTROL_AMOUNT = 6;
 
         private const int LANGUAGE_SETTINGS_ID = 0;
         private const int CLOCK_SETTINGS_ID = 1;
         private const int KEY_SETTINGS_ID = 2;
         private const int COMMON_KEYS_SETTINGS_ID = 3;
         private const int ACTION_KEYS_SETTINGS_ID = 4;
+        private const int TITLE_SCHEME_SETTINGS_ID = 5;
 
         private Label[] _labels = new Label[CONTROL_AMOUNT];
         private bool[] _settingSelected = new bool[CONTROL_AMOUNT];
@@ -45,6 +46,7 @@ namespace TitleTimerUI.Controls.SettingsWindow
             _labels[KEY_SETTINGS_ID] = lblKeyBindings;
             _labels[COMMON_KEYS_SETTINGS_ID] = lblCommonKeySettings;
             _labels[ACTION_KEYS_SETTINGS_ID] = lblActionKeys;
+            _labels[TITLE_SCHEME_SETTINGS_ID] = lblTitleScheme;
         }
 
         private void InitializeControls()
@@ -54,6 +56,7 @@ namespace TitleTimerUI.Controls.SettingsWindow
             _settingsControls[KEY_SETTINGS_ID] = new KeyBindingsControl(_mainForm);
             _settingsControls[COMMON_KEYS_SETTINGS_ID] = new CommonKeyBindingsControl(_mainForm);
             _settingsControls[ACTION_KEYS_SETTINGS_ID] = new ActionKeysControl(_mainForm);
+            _settingsControls[TITLE_SCHEME_SETTINGS_ID] = new TitleSettingsControl(_mainForm);
         }
 
         private void SetSelected(int settingId)
@@ -107,6 +110,8 @@ namespace TitleTimerUI.Controls.SettingsWindow
             lblActionKeys.MouseLeave += OnMouseLeaveOther;
             lblCommonKeySettings.MouseEnter += OnMouseEnterCommonKeySettings;
             lblCommonKeySettings.MouseLeave += OnMouseLeaveCommonKeySettings;
+            lblTitleScheme.MouseEnter += OnMouseEnterTitleSchemeSettings;
+            lblTitleScheme.MouseLeave += OnMouseLeaveTileSchemeSettings;
         }
 
         private void Other_MouseEnter(object? sender, EventArgs e)
@@ -209,9 +214,30 @@ namespace TitleTimerUI.Controls.SettingsWindow
             }
         }
 
+        private void OnMouseEnterTitleSchemeSettings(object sender, EventArgs e)
+        {
+            if (!_settingSelected[COMMON_KEYS_SETTINGS_ID])
+            {
+                lblTitleScheme.Image = Properties.Resources.btnSettingHovered;
+            }
+        }
+
+        private void OnMouseLeaveTileSchemeSettings(object sender, EventArgs e)
+        {
+            if (!_settingSelected[COMMON_KEYS_SETTINGS_ID])
+            {
+                lblTitleScheme.Image = Properties.Resources.btnSettingNotSelected;
+            }
+        }
+
         private void label1_Click(object sender, EventArgs e)
         {
             SetSelected(COMMON_KEYS_SETTINGS_ID);
+        }
+
+        private void lblTitleScheme_Click(object sender, EventArgs e)
+        {
+            SetSelected(TITLE_SCHEME_SETTINGS_ID);
         }
     }
 }

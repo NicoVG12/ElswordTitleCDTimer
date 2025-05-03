@@ -36,6 +36,7 @@
             lblBackground = new Label();
             pnlSpecificSettings = new FlowLayoutPanel();
             lblCommonKeySettings = new Label();
+            lblTitleScheme = new Label();
             SuspendLayout();
             // 
             // lblLanguage
@@ -122,9 +123,24 @@
             lblCommonKeySettings.TextAlign = ContentAlignment.MiddleCenter;
             lblCommonKeySettings.Click += label1_Click;
             // 
+            // lblTitleScheme
+            // 
+            lblTitleScheme.BackColor = SystemColors.Control;
+            lblTitleScheme.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTitleScheme.ForeColor = Color.White;
+            lblTitleScheme.Image = Properties.Resources.btnSettingNotSelected;
+            lblTitleScheme.Location = new Point(27, 143);
+            lblTitleScheme.Name = "lblTitleScheme";
+            lblTitleScheme.Size = new Size(127, 27);
+            lblTitleScheme.TabIndex = 7;
+            lblTitleScheme.Text = "Title Scheme";
+            lblTitleScheme.TextAlign = ContentAlignment.MiddleCenter;
+            lblTitleScheme.Click += lblTitleScheme_Click;
+            // 
             // SettingsControl
             // 
             AutoScaleMode = AutoScaleMode.None;
+            Controls.Add(lblTitleScheme);
             Controls.Add(lblCommonKeySettings);
             Controls.Add(pnlSpecificSettings);
             Controls.Add(lblActionKeys);
@@ -147,5 +163,6 @@
         private Label lblBackground;
         private FlowLayoutPanel pnlSpecificSettings;
         private Label lblCommonKeySettings;
+        private Label lblTitleScheme;
     }
 }

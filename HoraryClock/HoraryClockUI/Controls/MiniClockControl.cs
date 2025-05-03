@@ -188,25 +188,25 @@ namespace TitleTimerUI.Controls
 
                 if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.TopTitleKey) < 0)
                 {
-                    ChangeTitleAsync(TitleScheme.AwkDmgTitle, titleStatus);
+                    ChangeTitleAsync(_config.TitleScheme.TopTitle, titleStatus);
                     titleStatus.IsSwitchingTitle = false;
                 }
 
                 if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.LeftTitleKey) < 0)
                 {
-                    ChangeTitleAsync(TitleScheme.AwkCDrTitle, titleStatus);
+                    ChangeTitleAsync(_config.TitleScheme.LeftTitle, titleStatus);
                     titleStatus.IsSwitchingTitle = false;
                 }
 
                 if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.RightTitleKey) < 0)
                 {
-                    ChangeTitleAsync(TitleScheme.MainTitle, titleStatus);
+                    ChangeTitleAsync(_config.TitleScheme.RightTitle, titleStatus);
                     titleStatus.IsSwitchingTitle = false;
                 }
 
                 if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.BottomTitleKey) < 0)
                 {
-                    ChangeTitleAsync(TitleScheme.ResetSkillTitle, titleStatus);
+                    ChangeTitleAsync(_config.TitleScheme.BottomTitle, titleStatus);
                     titleStatus.IsSwitchingTitle = false;
                 }
 

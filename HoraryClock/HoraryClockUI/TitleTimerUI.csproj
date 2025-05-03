@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Controls\SettingsWindow\TitleSettingsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Controls\SettingsWindow\CommonKeysControl.cs" />
     <Compile Update="Controls\SettingsWindow\ActionKeysControl.cs">
       <SubType>UserControl</SubType>
