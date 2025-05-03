@@ -11,5 +11,6 @@ namespace TitleTimerUI
     {
         public int CurrentTitle = TitleScheme.NoTitle;
         public bool IsSwitchingTitle = false;
+        public bool IsWritingInChat = false;
     }
 }

@@ -18,6 +18,9 @@ namespace Settings
         public short OnionKey { get; set; }
         public short OnionKeyAlt { get; set; }
 
+        public short EnterKey { get; } = 0x0D;
+        public short EscapeKey { get; } = 0x1B;
+
         public IEnumerable<short> SkillKeys { get; set; } = new List<short>();
 
         public UserActionKeys() { }

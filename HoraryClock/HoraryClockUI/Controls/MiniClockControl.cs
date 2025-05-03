@@ -26,9 +26,6 @@ namespace TitleTimerUI.Controls
         private Keys KeyUnpauseAll;
         private Keys KeyResetAll;
 
-        private short Enter = 0x0D;
-        private short Escape = 0x1B;
-
         [DllImport("user32.dll")]
         public static extern short GetAsyncKeyState(int vKey);
 
@@ -75,7 +72,7 @@ namespace TitleTimerUI.Controls
         {
             TitleStatus titleStatus = new TitleStatus();
 
-            if (false)
+            if (!_config.AutomaticModeEnabled)
             {
                 while (true)
                 {
@@ -130,90 +127,111 @@ namespace TitleTimerUI.Controls
 
             while (true)
             {
-                if (((GetAsyncKeyState((int)_config.UserActionKeys.OnionKey) < 0) || (GetAsyncKeyState((int)_config.UserActionKeys.OnionKeyAlt) < 0) || (GetAsyncKeyState((int)_config.UserActionKeys.AwakeningKey) < 0)) && titleStatus.CurrentTitle == TitleScheme.AwkCDrTitle)
+                if (!titleStatus.IsWritingInChat)
                 {
-                    StartTimer(_timers[TitleTimer.ID_135], titleStatus);
-                }
-
-                bool pressedAnySkill = false;
-                foreach (short key in _config.UserActionKeys.SkillKeys)
-                {
-                    pressedAnySkill |= (GetAsyncKeyState((int)key) < 0);
-                }
-
-                if (pressedAnySkill && titleStatus.CurrentTitle == TitleScheme.ResetSkillTitle)
-                {
-                    StartTimer(_timers[TitleTimer.ID_156], titleStatus);
-                }
-
-                if (((GetAsyncKeyState((int)_config.UserActionKeys.OnionKey) < 0) || (GetAsyncKeyState((int)_config.UserActionKeys.OnionKeyAlt) < 0) || (GetAsyncKeyState((int)_config.UserActionKeys.AwakeningKey) < 0)) && titleStatus.CurrentTitle == TitleScheme.AwkDmgTitle)
-                {
-                    StartTimer(_timers[TitleTimer.ID_175], titleStatus);
-                }
-
-                if (pressedAnySkill && titleStatus.CurrentTitle == TitleScheme.MainTitle)
-                {
-                    StartTimer(_timers[TitleTimer.ID_ORDER], titleStatus);
-                }
-
-                if (GetAsyncKeyState((int)KeyPauseAll) < 0)
-                {
-                    foreach (TitleTimer title in _timers)
+                    if (((GetAsyncKeyState((int)_config.UserActionKeys.OnionKey) < 0) || (GetAsyncKeyState((int)_config.UserActionKeys.OnionKeyAlt) < 0) || (GetAsyncKeyState((int)_config.UserActionKeys.AwakeningKey) < 0)) && titleStatus.CurrentTitle == TitleScheme.AwkCDrTitle)
                     {
-                        title.Timer.Pause();
+                        StartTimer(_timers[TitleTimer.ID_135], titleStatus);
                     }
-                }
 
-                if (GetAsyncKeyState((int)KeyUnpauseAll) < 0)
-                {
-                    foreach (TitleTimer title in _timers)
+                    bool pressedAnySkill = false;
+                    foreach (short key in _config.UserActionKeys.SkillKeys)
                     {
-                        UnpauseTimer(title, titleStatus);
+                        pressedAnySkill |= (GetAsyncKeyState((int)key) < 0);
                     }
-                }
 
-                if (GetAsyncKeyState((int)KeyResetAll) < 0)
-                {
-                    foreach (TitleTimer title in _timers)
+                    if (pressedAnySkill && titleStatus.CurrentTitle == TitleScheme.ResetSkillTitle)
                     {
-                        title.Timer.Reset();
-                        title.Label.Image = title.Image;
+                        StartTimer(_timers[TitleTimer.ID_156], titleStatus);
                     }
-                }
 
-                if (GetAsyncKeyState(_config.UserActionKeys.TitleSwitchKey) < 0)
-                {
-                    titleStatus.IsSwitchingTitle = true;
-                }
+                    if (((GetAsyncKeyState((int)_config.UserActionKeys.OnionKey) < 0) || (GetAsyncKeyState((int)_config.UserActionKeys.OnionKeyAlt) < 0) || (GetAsyncKeyState((int)_config.UserActionKeys.AwakeningKey) < 0)) && titleStatus.CurrentTitle == TitleScheme.AwkDmgTitle)
+                    {
+                        StartTimer(_timers[TitleTimer.ID_175], titleStatus);
+                    }
 
-                if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.TopTitleKey) < 0)
-                {
-                    ChangeTitleAsync(_config.TitleScheme.TopTitle, titleStatus);
-                    titleStatus.IsSwitchingTitle = false;
-                }
+                    if (pressedAnySkill && titleStatus.CurrentTitle == TitleScheme.MainTitle)
+                    {
+                        StartTimer(_timers[TitleTimer.ID_ORDER], titleStatus);
+                    }
 
-                if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.LeftTitleKey) < 0)
-                {
-                    ChangeTitleAsync(_config.TitleScheme.LeftTitle, titleStatus);
-                    titleStatus.IsSwitchingTitle = false;
-                }
+                    if (GetAsyncKeyState((int)KeyPauseAll) < 0)
+                    {
+                        foreach (TitleTimer title in _timers)
+                        {
+                            title.Timer.Pause();
+                        }
+                    }
 
-                if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.RightTitleKey) < 0)
-                {
-                    ChangeTitleAsync(_config.TitleScheme.RightTitle, titleStatus);
-                    titleStatus.IsSwitchingTitle = false;
-                }
+                    if (GetAsyncKeyState((int)KeyUnpauseAll) < 0)
+                    {
+                        foreach (TitleTimer title in _timers)
+                        {
+                            UnpauseTimer(title, titleStatus);
+                        }
+                    }
 
-                if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.BottomTitleKey) < 0)
+                    if (GetAsyncKeyState((int)KeyResetAll) < 0)
+                    {
+                        foreach (TitleTimer title in _timers)
+                        {
+                            title.Timer.Reset();
+                            title.Label.Image = title.Image;
+                        }
+                    }
+
+                    if (GetAsyncKeyState(_config.UserActionKeys.TitleSwitchKey) < 0)
+                    {
+                        titleStatus.IsSwitchingTitle = true;
+                    }
+
+                    if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.TopTitleKey) < 0)
+                    {
+                        ChangeTitleAsync(_config.TitleScheme.TopTitle, titleStatus);
+                        titleStatus.IsSwitchingTitle = false;
+                    }
+
+                    if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.LeftTitleKey) < 0)
+                    {
+                        ChangeTitleAsync(_config.TitleScheme.LeftTitle, titleStatus);
+                        titleStatus.IsSwitchingTitle = false;
+                    }
+
+                    if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.RightTitleKey) < 0)
+                    {
+                        ChangeTitleAsync(_config.TitleScheme.RightTitle, titleStatus);
+                        titleStatus.IsSwitchingTitle = false;
+                    }
+
+                    if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.BottomTitleKey) < 0)
+                    {
+                        ChangeTitleAsync(_config.TitleScheme.BottomTitle, titleStatus);
+                        titleStatus.IsSwitchingTitle = false;
+                    }
+
+                    //TODO: Think of a better way to do this, it's kinda messy rn due to how many alternative uses to enters there are other than just opening the chat
+                    /*if (GetAsyncKeyState(_config.UserActionKeys.EnterKey) < 0)
+                    {
+                        SetIsWrittingAsync(true, titleStatus);
+                    };*/
+                }/*
+                else
                 {
-                    ChangeTitleAsync(_config.TitleScheme.BottomTitle, titleStatus);
-                    titleStatus.IsSwitchingTitle = false;
-                }
+                    if (GetAsyncKeyState(_config.UserActionKeys.EnterKey) < 0 || GetAsyncKeyState(_config.UserActionKeys.EscapeKey) < 0)
+                    {
+                        SetIsWrittingAsync(false, titleStatus);
+                    }
+                }*/
 
                 await Task.Delay(1);
             }
         }
 
+        private async Task SetIsWrittingAsync(bool IsWriting, TitleStatus status)
+        {
+            await Task.Delay(15);
+            status.IsWritingInChat = IsWriting;
+        }
 
         private async Task ChangeTitleAsync(int titleId, TitleStatus titleStatus)
         {

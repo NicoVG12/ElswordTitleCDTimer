@@ -216,7 +216,7 @@ namespace TitleTimerUI.Controls.SettingsWindow
 
         private void OnMouseEnterTitleSchemeSettings(object sender, EventArgs e)
         {
-            if (!_settingSelected[COMMON_KEYS_SETTINGS_ID])
+            if (!_settingSelected[TITLE_SCHEME_SETTINGS_ID])
             {
                 lblTitleScheme.Image = Properties.Resources.btnSettingHovered;
             }
@@ -224,7 +224,7 @@ namespace TitleTimerUI.Controls.SettingsWindow
 
         private void OnMouseLeaveTileSchemeSettings(object sender, EventArgs e)
         {
-            if (!_settingSelected[COMMON_KEYS_SETTINGS_ID])
+            if (!_settingSelected[TITLE_SCHEME_SETTINGS_ID])
             {
                 lblTitleScheme.Image = Properties.Resources.btnSettingNotSelected;
             }
