@@ -198,6 +198,9 @@
             txtOnion.Size = new Size(49, 29);
             txtOnion.TabIndex = 20;
             txtOnion.TextAlign = HorizontalAlignment.Center;
+            txtOnion.KeyDown += txtOnion_KeyDown;
+            txtOnion.KeyPress += txtOnion_KeyPress;
+            txtOnion.KeyUp += txtOnion_KeyUp;
             // 
             // ActionKeysControl
             // 

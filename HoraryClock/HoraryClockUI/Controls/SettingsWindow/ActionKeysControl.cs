@@ -17,6 +17,12 @@ namespace TitleTimerUI.Controls.SettingsWindow
         private string _cannotBoundSameKeyToMultipleActionsMessage;
         private MainForm _mainForm;
         private Config _config = Config.Instance();
+
+        private Keys _awk;
+        private Keys _onion;
+        private Keys _onionAlt;
+        private Keys _titleSwitch;
+
         public ActionKeysControl(MainForm mainForm)
         {
             _mainForm = mainForm;
@@ -40,6 +46,11 @@ namespace TitleTimerUI.Controls.SettingsWindow
             txtOnion.Text = converter.ConvertToString((Keys)_config.UserActionKeys.OnionKey);
             txtOnionAlt.Text = converter.ConvertToString((Keys)_config.UserActionKeys.OnionKeyAlt);
             txtTitleSwitch.Text = converter.ConvertToString((Keys)_config.UserActionKeys.TitleSwitchKey);
+
+            _awk = (Keys)_config.UserActionKeys.AwakeningKey;
+            _onion = (Keys)_config.UserActionKeys.OnionKey;
+            _onionAlt = (Keys)_config.UserActionKeys.OnionKeyAlt;
+            _titleSwitch = (Keys)_config.UserActionKeys.TitleSwitchKey;
         }
 
         private void OnMouseEnter(object sender, EventArgs e)
@@ -54,10 +65,10 @@ namespace TitleTimerUI.Controls.SettingsWindow
 
         private async void lblSave_Click(object sender, EventArgs e)
         {
-            _config.UserActionKeys.AwakeningKey = (short)StringToKeys(txtAwkKey.Text);
-            _config.UserActionKeys.OnionKey = (short)StringToKeys(txtOnion.Text);
-            _config.UserActionKeys.OnionKeyAlt = (short)StringToKeys(txtOnionAlt.Text);
-            _config.UserActionKeys.TitleSwitchKey = (short)StringToKeys(txtTitleSwitch.Text);
+            _config.UserActionKeys.AwakeningKey = (short)_awk;
+            _config.UserActionKeys.OnionKey = (short)_onion;
+            _config.UserActionKeys.OnionKeyAlt = (short)_onionAlt;
+            _config.UserActionKeys.TitleSwitchKey = (short)_titleSwitch;
 
             _config.Save();
             _mainForm.LoadConfig();
@@ -79,6 +90,7 @@ namespace TitleTimerUI.Controls.SettingsWindow
         private void txtStartKey_KeyUp(object sender, KeyEventArgs e)
         {
             SetText(txtAwkKey, e);
+            _awk = e.KeyCode;
         }
 
         private void txtPauseKey_KeyDown(object sender, KeyEventArgs e)
@@ -94,6 +106,7 @@ namespace TitleTimerUI.Controls.SettingsWindow
         private void txtPauseKey_KeyUp(object sender, KeyEventArgs e)
         {
             SetText(txtOnionAlt, e);
+            _onionAlt = e.KeyCode;
         }
 
         private void txtResetKey_KeyDown(object sender, KeyEventArgs e)
@@ -109,6 +122,7 @@ namespace TitleTimerUI.Controls.SettingsWindow
         private void txtResetKey_KeyUp(object sender, KeyEventArgs e)
         {
             SetText(txtTitleSwitch, e);
+            _titleSwitch = e.KeyCode;
         }
 
         private void txtStartKey_KeyDown(object sender, KeyEventArgs e)
@@ -125,6 +139,22 @@ namespace TitleTimerUI.Controls.SettingsWindow
             if (Enum.TryParse<Keys>(key, out var result))
                 return result;
             return Keys.F1;
+        }
+
+        private void txtOnion_KeyDown(object sender, KeyEventArgs e)
+        {
+            txtOnion.Text = "";
+        }
+
+        private void txtOnion_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            txtOnion.Text = "";
+        }
+
+        private void txtOnion_KeyUp(object sender, KeyEventArgs e)
+        {
+            SetText(txtOnion, e);
+            _onion = e.KeyCode;
         }
     }
 }
