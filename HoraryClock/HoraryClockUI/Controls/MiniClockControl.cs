@@ -37,6 +37,8 @@ namespace TitleTimerUI.Controls
         private List<TitleTimer> _timers = new List<TitleTimer>();
 
         private int _refreshDelay = 33;
+
+        private Dictionary<short, bool> _keyPreviouslyDown = new();
         public MiniClockControl(MainForm mainForm)
         {
             _mainForm = mainForm;
@@ -162,29 +164,42 @@ namespace TitleTimerUI.Controls
                         titleStatus.IsSwitchingTitle = true;
                     }
 
-                    if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.TopTitleKey) < 0)
+                    CheckKeyOnce(_config.UserActionKeys.TopTitleKey, () =>
                     {
-                        ChangeTitleAsync(_config.TitleScheme.TopTitle, titleStatus);
-                        titleStatus.IsSwitchingTitle = false;
-                    }
+                        if (titleStatus.IsSwitchingTitle)
+                        {
+                            ChangeTitleAsync(_config.TitleScheme.TopTitle, titleStatus);
+                            titleStatus.IsSwitchingTitle = false;
+                        }
+                    });
 
-                    if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.LeftTitleKey) < 0)
+                    CheckKeyOnce(_config.UserActionKeys.LeftTitleKey, () =>
                     {
-                        ChangeTitleAsync(_config.TitleScheme.LeftTitle, titleStatus);
-                        titleStatus.IsSwitchingTitle = false;
-                    }
+                        if (titleStatus.IsSwitchingTitle)
+                        {
+                            ChangeTitleAsync(_config.TitleScheme.LeftTitle, titleStatus);
+                            titleStatus.IsSwitchingTitle = false;
+                        }
+                    });
 
-                    if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.RightTitleKey) < 0)
+                    CheckKeyOnce(_config.UserActionKeys.RightTitleKey, () =>
                     {
-                        ChangeTitleAsync(_config.TitleScheme.RightTitle, titleStatus);
-                        titleStatus.IsSwitchingTitle = false;
-                    }
+                        if (titleStatus.IsSwitchingTitle)
+                        {
+                            ChangeTitleAsync(_config.TitleScheme.RightTitle, titleStatus);
+                            titleStatus.IsSwitchingTitle = false;
+                        }
+                    });
 
-                    if (titleStatus.IsSwitchingTitle && GetAsyncKeyState(_config.UserActionKeys.BottomTitleKey) < 0)
+                    CheckKeyOnce(_config.UserActionKeys.BottomTitleKey, () =>
                     {
-                        ChangeTitleAsync(_config.TitleScheme.BottomTitle, titleStatus);
-                        titleStatus.IsSwitchingTitle = false;
-                    }
+                        if (titleStatus.IsSwitchingTitle)
+                        {
+                            ChangeTitleAsync(_config.TitleScheme.BottomTitle, titleStatus);
+                            titleStatus.IsSwitchingTitle = false;
+                        }
+                    });
+
 
                     //TODO: Think of a better way to do this, it's kinda messy rn due to how many alternative uses to enters there are other than just opening the chat
                     /*if (GetAsyncKeyState(_config.UserActionKeys.EnterKey) < 0)
@@ -230,10 +245,11 @@ namespace TitleTimerUI.Controls
                     {
                         title.Timer.Reset();
                         title.Label.Text = "";
-                        if(titleStatus.CurrentTitle == title.TitleId)
+                        if (titleStatus.CurrentTitle == title.TitleId)
                         {
                             title.Label.Image = title.ImageSelected;
-                        } else
+                        }
+                        else
                         {
                             title.Label.Image = title.Image;
                         }
@@ -242,6 +258,21 @@ namespace TitleTimerUI.Controls
 
                 await Task.Delay(10);
             }
+        }
+
+        private void CheckKeyOnce(short key, Action onFirstPress)
+        {
+            bool isDown = GetAsyncKeyState(key) < 0;
+
+            if (!_keyPreviouslyDown.ContainsKey(key))
+                _keyPreviouslyDown[key] = false;
+
+            if (isDown && !_keyPreviouslyDown[key])
+            {
+                onFirstPress();
+            }
+
+            _keyPreviouslyDown[key] = isDown;
         }
 
         private async Task SetIsWrittingAsync(bool IsWriting, TitleStatus status)
@@ -253,7 +284,7 @@ namespace TitleTimerUI.Controls
         private async Task ChangeTitleAsync(int titleId, TitleStatus titleStatus)
         {
             await Task.Delay(_config.TitleSwitchDelayMilliseconds);
-            foreach(TitleTimer timer in _timers)
+            foreach (TitleTimer timer in _timers)
             {
                 if (timer.Timer.IsRunning)
                 {
