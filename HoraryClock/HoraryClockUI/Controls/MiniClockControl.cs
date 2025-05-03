@@ -39,6 +39,8 @@ namespace TitleTimerUI.Controls
         private int _refreshDelay = 33;
 
         private Dictionary<short, bool> _keyPreviouslyDown = new();
+        private static object _titleSwitchLock = new object();
+
         public MiniClockControl(MainForm mainForm)
         {
             _mainForm = mainForm;
@@ -159,45 +161,32 @@ namespace TitleTimerUI.Controls
                         StartTimer(_timers[TitleTimer.ID_ORDER], titleStatus);
                     }
 
-                    if (GetAsyncKeyState(_config.UserActionKeys.TitleSwitchKey) < 0)
+                    lock (_titleSwitchLock)
                     {
-                        titleStatus.IsSwitchingTitle = true;
+                        if (GetAsyncKeyState(_config.UserActionKeys.TitleSwitchKey) < 0)
+                        {
+                            titleStatus.IsSwitchingTitle = true;
+                        }
                     }
 
                     CheckKeyOnce(_config.UserActionKeys.TopTitleKey, () =>
                     {
-                        if (titleStatus.IsSwitchingTitle)
-                        {
-                            ChangeTitleAsync(_config.TitleScheme.TopTitle, titleStatus);
-                            titleStatus.IsSwitchingTitle = false;
-                        }
+                        OnTitleSwitch(_config.TitleScheme.TopTitle, titleStatus);
                     });
 
                     CheckKeyOnce(_config.UserActionKeys.LeftTitleKey, () =>
                     {
-                        if (titleStatus.IsSwitchingTitle)
-                        {
-                            ChangeTitleAsync(_config.TitleScheme.LeftTitle, titleStatus);
-                            titleStatus.IsSwitchingTitle = false;
-                        }
+                        OnTitleSwitch(_config.TitleScheme.LeftTitle, titleStatus);
                     });
 
                     CheckKeyOnce(_config.UserActionKeys.RightTitleKey, () =>
                     {
-                        if (titleStatus.IsSwitchingTitle)
-                        {
-                            ChangeTitleAsync(_config.TitleScheme.RightTitle, titleStatus);
-                            titleStatus.IsSwitchingTitle = false;
-                        }
+                        OnTitleSwitch(_config.TitleScheme.RightTitle, titleStatus);
                     });
 
                     CheckKeyOnce(_config.UserActionKeys.BottomTitleKey, () =>
                     {
-                        if (titleStatus.IsSwitchingTitle)
-                        {
-                            ChangeTitleAsync(_config.TitleScheme.BottomTitle, titleStatus);
-                            titleStatus.IsSwitchingTitle = false;
-                        }
+                        OnTitleSwitch(_config.TitleScheme.BottomTitle, titleStatus);
                     });
 
 
@@ -216,6 +205,18 @@ namespace TitleTimerUI.Controls
                 }*/
 
                 await Task.Delay(1);
+            }
+        }
+
+        private void OnTitleSwitch(int titleId, TitleStatus titleStatus)
+        {
+            lock (_titleSwitchLock)
+            {
+                if (titleStatus.IsSwitchingTitle)
+                {
+                    titleStatus.IsSwitchingTitle = false;
+                    ChangeTitleAsync(titleId, titleStatus);
+                }
             }
         }
 
