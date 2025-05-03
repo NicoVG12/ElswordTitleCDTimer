@@ -334,4 +334,28 @@
   <data name="Warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Warning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Title_135_CD_Selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Title_135_CD_Selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Title_135_Selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Title_135_Selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Title_156_CD_Selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Title_156_CD_Selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Title_156_Selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Title_156_Selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Title_175_CD_Selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Title_175_CD_Selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Title_175_Selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Title_175_Selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Title_Order_CD_Selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Title_Order_CD_Selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Title_Order_Selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Title_Order_Selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

@@ -663,9 +663,29 @@ namespace TitleTimerUI.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Title_135_CD_Selected {
+            get {
+                object obj = ResourceManager.GetObject("Title_135_CD_Selected", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Title_135_CD1 {
             get {
                 object obj = ResourceManager.GetObject("Title_135_CD1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Title_135_Selected {
+            get {
+                object obj = ResourceManager.GetObject("Title_135_Selected", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -693,9 +713,29 @@ namespace TitleTimerUI.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Title_156_CD_Selected {
+            get {
+                object obj = ResourceManager.GetObject("Title_156_CD_Selected", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Title_156_CD1 {
             get {
                 object obj = ResourceManager.GetObject("Title_156_CD1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Title_156_Selected {
+            get {
+                object obj = ResourceManager.GetObject("Title_156_Selected", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -733,6 +773,16 @@ namespace TitleTimerUI.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Title_175_CD_Selected {
+            get {
+                object obj = ResourceManager.GetObject("Title_175_CD_Selected", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Title_175_CD1 {
             get {
                 object obj = ResourceManager.GetObject("Title_175_CD1", resourceCulture);
@@ -753,6 +803,16 @@ namespace TitleTimerUI.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Title_175_Selected {
+            get {
+                object obj = ResourceManager.GetObject("Title_175_Selected", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Title_Order {
             get {
                 object obj = ResourceManager.GetObject("Title_Order", resourceCulture);
@@ -766,6 +826,26 @@ namespace TitleTimerUI.Properties {
         internal static System.Drawing.Bitmap Title_Order_CD {
             get {
                 object obj = ResourceManager.GetObject("Title_Order_CD", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Title_Order_CD_Selected {
+            get {
+                object obj = ResourceManager.GetObject("Title_Order_CD_Selected", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Title_Order_Selected {
+            get {
+                object obj = ResourceManager.GetObject("Title_Order_Selected", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

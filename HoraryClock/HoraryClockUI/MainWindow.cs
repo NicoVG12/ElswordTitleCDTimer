@@ -93,7 +93,7 @@ namespace TitleTimerUI
 
         private void InitializeTitle()
         {
-            Text = "Title CD Timer v1.0";
+            Text = "Title CD Timer v2.0";
             lblBackground.Text = Text;
             Icon = Properties.Resources.Title_175_Icon;
         }

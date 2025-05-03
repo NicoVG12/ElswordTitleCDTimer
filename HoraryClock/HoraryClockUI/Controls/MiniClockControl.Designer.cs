@@ -70,7 +70,7 @@
             lblBackground.Padding = new Padding(10);
             lblBackground.Size = new Size(191, 104);
             lblBackground.TabIndex = 19;
-            lblBackground.Text = "Title CD Timer v1.0";
+            lblBackground.Text = "Title CD Timer v2.0";
             lblBackground.Click += lblBackground_Click;
             lblBackground.MouseDown += lblBackground_MouseDown;
             // 
