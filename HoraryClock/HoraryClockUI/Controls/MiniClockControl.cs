@@ -161,13 +161,14 @@ namespace TitleTimerUI.Controls
                         StartTimer(_timers[TitleTimer.ID_ORDER], titleStatus);
                     }
 
-                    lock (_titleSwitchLock)
+
+                    CheckKeyOnce(_config.UserActionKeys.TitleSwitchKey, () =>
                     {
-                        if (GetAsyncKeyState(_config.UserActionKeys.TitleSwitchKey) < 0)
+                        lock (_titleSwitchLock)
                         {
                             titleStatus.IsSwitchingTitle = true;
                         }
-                    }
+                    });
 
                     CheckKeyOnce(_config.UserActionKeys.TopTitleKey, () =>
                     {
@@ -210,14 +211,12 @@ namespace TitleTimerUI.Controls
 
         private void OnTitleSwitch(int titleId, TitleStatus titleStatus)
         {
-            lock (_titleSwitchLock)
+            if (titleStatus.IsSwitchingTitle)
             {
-                if (titleStatus.IsSwitchingTitle)
-                {
-                    titleStatus.IsSwitchingTitle = false;
-                    ChangeTitleAsync(titleId, titleStatus);
-                }
+                titleStatus.IsSwitchingTitle = false;
+                ChangeTitleAsync(titleId, titleStatus);
             }
+
         }
 
         private async Task ListenToGlobalKeys(TitleStatus titleStatus)
