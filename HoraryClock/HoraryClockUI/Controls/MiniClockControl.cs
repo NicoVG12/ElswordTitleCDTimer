@@ -191,19 +191,23 @@ namespace TitleTimerUI.Controls
                     });
 
 
-                    //TODO: Think of a better way to do this, it's kinda messy rn due to how many alternative uses to enters there are other than just opening the chat
-                    /*if (GetAsyncKeyState(_config.UserActionKeys.EnterKey) < 0)
+                    CheckKeyOnce(_config.UserActionKeys.EnterKey, () =>
                     {
                         SetIsWrittingAsync(true, titleStatus);
-                    };*/
-                }/*
+                    });
+                }
                 else
                 {
-                    if (GetAsyncKeyState(_config.UserActionKeys.EnterKey) < 0 || GetAsyncKeyState(_config.UserActionKeys.EscapeKey) < 0)
+                    CheckKeyOnce(_config.UserActionKeys.EnterKey, () =>
                     {
                         SetIsWrittingAsync(false, titleStatus);
-                    }
-                }*/
+                    });
+
+                    CheckKeyOnce(_config.UserActionKeys.EscapeKey, () =>
+                    {
+                        SetIsWrittingAsync(false, titleStatus);
+                    });
+                }
 
                 await Task.Delay(1);
             }

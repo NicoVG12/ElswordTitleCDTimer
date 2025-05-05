@@ -152,22 +152,9 @@ namespace TitleTimerUI.Controls.SettingsWindow
 
         public Keys StringToKeys(string key)
         {
-            switch (key)
-            {
-                case "F1": return Keys.F1;
-                case "F2": return Keys.F2;
-                case "F3": return Keys.F3;
-                case "F4": return Keys.F4;
-                case "F5": return Keys.F5;
-                case "F6": return Keys.F6;
-                case "F7": return Keys.F7;
-                case "F8": return Keys.F8;
-                case "F9": return Keys.F9;
-                case "F10": return Keys.F10;
-                case "F11": return Keys.F11;
-                case "F12": return Keys.F12;
-                default: return Keys.F1;
-            }
+            if (Enum.TryParse<Keys>(key, out var result))
+                return result;
+            return Keys.F1;
         }
 
         private void txtOrderKey_KeyDown(object sender, KeyEventArgs e)
